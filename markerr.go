@@ -3,6 +3,9 @@ package markerr
 import "fmt"
 
 func Mark(err error, marker string) error {
+	if err == nil {
+		return nil
+	}
 	return &markErr{
 		err:    err,
 		marker: marker,

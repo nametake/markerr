@@ -28,3 +28,9 @@ func TestMark(t *testing.T) {
 		})
 	}
 }
+
+func TestMarkNil(t *testing.T) {
+	if got := Mark(nil, "no error"); got != nil {
+		t.Errorf("Mark(nil, \"no error\"): got: %v, want nil", got)
+	}
+}
