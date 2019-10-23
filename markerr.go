@@ -21,6 +21,10 @@ func (e *markErr) Error() string {
 	return fmt.Sprintf("%s: %v", e.marker, e.err)
 }
 
+func (e *markErr) Unwrap() error {
+	return e.err
+}
+
 func Take(err error) (error, string) {
 	for err != nil {
 		m, ok := err.(*markErr)
