@@ -21,6 +21,21 @@ func (e *markErr) Error() string {
 	return fmt.Sprintf("%s: %v", e.marker, e.err)
 }
 
-func Take(err error) (string, error) {
-	panic("not implemented")
+func Take(err error) (error, string) {
+	for err != nil {
+		m, ok := err.(*markErr)
+		if ok {
+			return m.err, m.marker
+		}
+		unwrap, ok := err.(unwrapper)
+		if !ok {
+			break
+		}
+		err = unwrap.Unwrap()
+	}
+	return nil, ""
+}
+
+type unwrapper interface {
+	Unwrap() error
 }
