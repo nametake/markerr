@@ -56,7 +56,7 @@ func TestTake(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			err, marker := Take(test.err)
+			marker, err := TakeMarker(test.err)
 			if err.Error() != test.want {
 				t.Errorf("got: %v, want %v", err.Error(), test.want)
 			}

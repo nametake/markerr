@@ -14,10 +14,10 @@ func cause() error {
 func first() error {
 	err := cause()
 	err = markerr.Mark(err, "warning")
-	return fmt.Errorf("first: %w", err)
 
 	// one line:
 	// return fmt.Errorf("first: %w", markerr.Mark(err, "warning"))
+	return fmt.Errorf("first: %w", err)
 }
 
 func second() error {
@@ -29,7 +29,7 @@ func Example() {
 	err := second()
 
 	fmt.Println(err)
-	fmt.Println(markerr.Take(err))
+	fmt.Println(markerr.TakeMarker(err))
 	err = errors.Unwrap(err)
 	fmt.Println(err)
 	err = errors.Unwrap(err)
@@ -39,7 +39,7 @@ func Example() {
 
 	// Output:
 	// second: first: warning: cause
-	// cause warning
+	// warning cause
 	// first: warning: cause
 	// warning: cause
 	// cause

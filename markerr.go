@@ -6,6 +6,7 @@ func Mark(err error, marker string) error {
 	if err == nil {
 		return nil
 	}
+
 	return &markErr{
 		err:    err,
 		marker: marker,
@@ -25,19 +26,22 @@ func (e *markErr) Unwrap() error {
 	return e.err
 }
 
-func Take(err error) (error, string) {
+func TakeMarker(err error) (string, error) {
 	for err != nil {
 		m, ok := err.(*markErr)
 		if ok {
-			return m.err, m.marker
+			return m.marker, m.err
 		}
+
 		unwrap, ok := err.(unwrapper)
 		if !ok {
 			break
 		}
+
 		err = unwrap.Unwrap()
 	}
-	return nil, ""
+
+	return "", nil
 }
 
 type unwrapper interface {
