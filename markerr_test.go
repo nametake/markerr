@@ -60,6 +60,33 @@ func TestPair(t *testing.T) {
 	}
 }
 
+func TestPairNil(t *testing.T) {
+	tests := []struct {
+		name string
+		main error
+		sub  error
+	}{
+		{
+			name: "main nil",
+			main: nil,
+			sub:  errors.New("sub"),
+		},
+		{
+			name: "sub nil",
+			main: errors.New("main"),
+			sub:  nil,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			if got := Pair(test.main, test.sub); got != nil {
+				t.Errorf("Pair.Error(): got: %v, want nil", got)
+			}
+		})
+	}
+}
+
 func TestTakeMarker(t *testing.T) {
 	tests := []struct {
 		name   string

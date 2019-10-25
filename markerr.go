@@ -32,6 +32,10 @@ func TakeMarker(err error) (string, error) {
 }
 
 func Pair(main, sub error) error {
+	if main == nil || sub == nil {
+		return nil
+	}
+
 	return &pairErr{
 		main: main,
 		sub:  sub,
