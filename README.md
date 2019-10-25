@@ -1,6 +1,8 @@
 markerr
 =======
 
+[![GoDoc](https://godoc.org/github.com/nametake/suberr?status.svg)](https://godoc.org/github.com/nametake/suberr)
+
 Install
 -------
 
