@@ -77,6 +77,19 @@ func TestTakeMarker(t *testing.T) {
 			want:   "cause",
 			marker: "marker",
 		},
+		{
+			name: "while fmt.Errorf",
+			err: fmt.Errorf("third: %w",
+				fmt.Errorf("second: %w",
+					Mark(
+						fmt.Errorf("first: %w", errors.New("cause")),
+						"marker",
+					),
+				),
+			),
+			want:   "first: cause",
+			marker: "marker",
+		},
 	}
 
 	for _, test := range tests {
@@ -107,6 +120,19 @@ func TestTakePair(t *testing.T) {
 				),
 			),
 			want1: "main",
+			want2: "sub",
+		},
+		{
+			name: "while fmt.Errorf",
+			err: fmt.Errorf("third: %w",
+				fmt.Errorf("second: %w",
+					Pair(
+						fmt.Errorf("first: %w", errors.New("cause")),
+						errors.New("sub"),
+					),
+				),
+			),
+			want1: "first: cause",
 			want2: "sub",
 		},
 	}
