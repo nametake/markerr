@@ -27,8 +27,8 @@ func main() {
 	err = fmt.Errorf("first: %w", err)
 	err = fmt.Errorf("second: %w", err)
 
-	fmt.Println(err)               // second: first: warning: cause
-	fmt.Println(markerr.Take(err)) // cause warning
+	fmt.Println(err)                     // second: first: warning: cause
+	fmt.Println(markerr.TakeMarker(err)) // warning cause
 	err = errors.Unwrap(err)
 	fmt.Println(err) // first: warning: cause
 	err = errors.Unwrap(err)
